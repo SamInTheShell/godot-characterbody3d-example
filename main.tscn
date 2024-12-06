@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://b2j7g15q4tdun"]
+
+[ext_resource type="Script" path="res://CharacterController.gd" id="1_cx7ef"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dqw72"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_y7ljh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cfcea"]
+
+[sub_resource type="Sky" id="Sky_5uws1"]
+sky_material = SubResource("ProceduralSkyMaterial_cfcea")
+
+[sub_resource type="Environment" id="Environment_lgic5"]
+background_mode = 2
+sky = SubResource("Sky_5uws1")
+
+[node name="World" type="Node3D"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+script = ExtResource("1_cx7ef")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_dqw72")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+mesh = SubResource("CapsuleMesh_y7ljh")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.976417, 0.215894, 0, -0.215894, 0.976417, 0, 1.77194, 2.58723)
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.441406, 0)
+size = Vector3(15, 1.8, 15)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.269432, 0)
+operation = 2
+size = Vector3(14.5, 1.8, 14.5)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lgic5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 0.654068, 0.756436, 0, -0.756436, 0.654068, 0, 3.32887, 7.17656)
